@@ -5,12 +5,12 @@ const app = new Koa();
 const router = new Router();
 
 router.get('/', (ctx, next) => {
-	ctx.body = require('./client/pages');
+	ctx.body = 'koa';
 });
 
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(process.env.PORT || 3000, () => {
-	console.log('MAD server is listening to port 3000');
+app.listen(process.env.PORT || 4000, () => {
+	console.log('MAD server is listening to port 4000');
 });
