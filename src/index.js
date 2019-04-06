@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const CORS = require('@koa/cors');
-const env = require('./config/.env');
+// const env = require('./config/.env');
 
 const app = new Koa();
 const router = new Router();
