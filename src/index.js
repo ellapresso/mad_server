@@ -17,4 +17,4 @@ app.listen(process.env.PORT || env.PORT, async () => {
 	console.log('connected');
 });
 
-app.use(CORS({origin: 'https://mad-project.herokuapp.com'})); //cors 제한.
+// app.use(CORS({origin: 'https://mad-project.herokuapp.com'})); //cors 제한.
