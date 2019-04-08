@@ -3,7 +3,7 @@
 const http = require('http');
 const Koa = require('koa');
 const respond = require('koa-respond');
-require('dotenv').config();
+// require('dotenv').config();
 
 // const database = require('./config/database');
 
