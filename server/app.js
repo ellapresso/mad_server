@@ -2,6 +2,8 @@
 
 const http = require('http');
 const Koa = require('koa');
+const respond = require('koa-respond');
+
 // const database = require('./config/database');
 
 const app = new Koa();
@@ -11,17 +13,36 @@ const router = new Router();
 // require('./config/koa')(app);
 // require('./routes')(app);
 
-app.listen(4000);
+const mysql = require('mysql2');
 
-app.use(async (ctx) => {
-    ctx.body = 'Hello World';
+const madDatabase = mysql.createConnection({
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASS,
+    database: process.env.MADDB,
 });
-app.use(router.routes());
-app.use(router.allowedMethods());
+
+madDatabase.connect();
+
+app.listen(4000);
+app.use(respond());
+
+app.use(router.routes()).use(router.allowedMethods());
 
 router.get('/health', (ctx) => {
     ctx.ok();
 });
+
+router.get('/test', (ctx) => {
+    const testSql = 'select * from test where test_no=2';
+    return madDatabase
+        .promise()
+        .query(testSql)
+        .then(([rows, fields]) => {
+            return ctx.send(200, { test: rows });
+        });
+});
+
 /**
  * 서버 구동
  */
