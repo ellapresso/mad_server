@@ -1,27 +1,4 @@
 {
-<<<<<<< HEAD
-	"name": "server",
-	"version": "1.0.0",
-	"description": "MAD server",
-	"main": "index.js",
-	"scripts": {
-		"test": "test",
-		"start": "node src"
-	},
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"@koa/cors": "^2.2.3",
-		"koa": "^2.7.0",
-		"koa-bodyparser": "^4.2.1",
-		"koa-respond": "^2.1.0",
-		"koa-router": "^7.4.0"
-	},
-	"devDependencies": {},
-	"repository": {
-		"private": true
-	}
-=======
     "name": "mad_server",
     "version": "1.0.0",
     "description": "mad-blog : https:/",
@@ -54,5 +31,4 @@
         "url": "https://github.com/ellapresso/mad_server/issues"
     },
     "homepage": "https://github.com/ellapresso/mad_server#readme"
->>>>>>> test
 }
