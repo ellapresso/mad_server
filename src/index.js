@@ -8,8 +8,8 @@ const CORS = require('@koa/cors');
 const app = new Koa();
 const router = new Router();
 
-require('./api')(app);
 require('./config/koa')(app);
+require('./api')(app);
 
 router.get('/', (ctx, next) => {
 	ctx.body = 'koa';
