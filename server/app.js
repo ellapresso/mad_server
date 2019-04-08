@@ -1,18 +1,13 @@
 'use strict';
 
-const http = require('http');
+// const http = require('http');
 const Koa = require('koa');
 const respond = require('koa-respond');
-// require('dotenv').config();
-
-// const database = require('./config/database');
+require('dotenv').config();
 
 const app = new Koa();
-// const server = http.createServer(app.callback());
 const Router = require('koa-router');
 const router = new Router();
-// require('./config/koa')(app);
-// require('./routes')(app);
 
 const mysql = require('mysql2');
 
@@ -23,7 +18,7 @@ const madDatabase = mysql.createConnection({
     database: process.env.MADDB,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
+    queueLimit: 0
 });
 
 madDatabase.connect();
@@ -33,17 +28,17 @@ app.use(respond());
 
 app.use(router.routes()).use(router.allowedMethods());
 
-router.get('/health', (ctx) => {
+router.get('/health', ctx => {
     ctx.ok();
 });
 
-router.get('/test', (ctx) => {
+router.get('/test', ctx => {
     const testSql = 'select * from test where test_no=2';
     return madDatabase
         .promise()
         .query(testSql)
         .then(([rows, fields]) => {
-            return ctx.send(200, { test: rows });
+            return ctx.send(200, {test: rows});
         });
 });
 
@@ -74,7 +69,7 @@ router.get('/test', (ctx) => {
 /**
  * 처리하지 못한 예외조항 로그기록
  */
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
     console.log(err);
 });
 
