@@ -2,7 +2,7 @@
     "name": "mad_server",
     "version": "1.0.0",
     "description": "mad-blog : https:/",
-    "main": "index.js",
+    "main": "server/index.js",
     "dependencies": {
         "@koa/cors": "^3.0.0",
         "dotenv": "^7.0.0",
@@ -19,6 +19,7 @@
         "eslint-config-google": "^0.12.0"
     },
     "scripts": {
+        "start": "node server",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
