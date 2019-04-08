@@ -14,14 +14,15 @@ const router = new Router();
 // require('./routes')(app);
 
 const mysql = require('mysql2');
+require('dotenv').config();
 
 const madDatabase = mysql.createConnection({
     host: process.env.HOST,
-    user: process.env.USER,
+    user: process.env.USERNAME,
     password: process.env.PASS,
     database: process.env.MADDB,
 });
-
+console.log(process.env.USERNAME);
 madDatabase.connect();
 
 app.listen(4000);
