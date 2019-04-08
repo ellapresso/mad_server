@@ -3,6 +3,7 @@
 const http = require('http');
 const Koa = require('koa');
 const respond = require('koa-respond');
+require('dotenv').config();
 
 // const database = require('./config/database');
 
@@ -14,7 +15,6 @@ const router = new Router();
 // require('./routes')(app);
 
 const mysql = require('mysql2');
-require('dotenv').config();
 
 const madDatabase = mysql.createConnection({
     host: process.env.HOST,
@@ -22,10 +22,10 @@ const madDatabase = mysql.createConnection({
     password: process.env.PASS,
     database: process.env.MADDB,
 });
-console.log(process.env.USERNAME);
+
 madDatabase.connect();
 
-app.listen(4000);
+app.listen(process.env.PORT);
 app.use(respond());
 
 app.use(router.routes()).use(router.allowedMethods());
