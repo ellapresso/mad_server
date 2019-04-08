@@ -21,6 +21,9 @@ const madDatabase = mysql.createConnection({
     user: process.env.USERNAME,
     password: process.env.PASS,
     database: process.env.MADDB,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
 });
 
 madDatabase.connect();
