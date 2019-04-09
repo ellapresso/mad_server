@@ -2,9 +2,9 @@
 
 const Router = require('koa-router');
 
-// const userCtrl = require('./controllers/user');
+const testCtrl = require('./controllers/test2');
 
-// const USER = '/api/user';
+const TEST = '/api/test2';
 
 module.exports = (app) => {
     const router = new Router();
@@ -12,5 +12,5 @@ module.exports = (app) => {
     app.use(router.routes());
     app.use(router.allowedMethods());
 
-    // router.get(`${USER}`, userCtrl.getUser);
+    router.get(`${TEST}`, testCtrl.getTest);
 };

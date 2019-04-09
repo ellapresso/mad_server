@@ -9,36 +9,27 @@ const app = new Koa();
 const Router = require('koa-router');
 const router = new Router();
 
-const mysql = require('mysql2');
-
-const madDatabase = mysql.createConnection({
-    host: process.env.HOST,
-    user: process.env.USERNAME,
-    password: process.env.PASS,
-    database: process.env.MADDB,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-madDatabase.connect();
-
+const db = require('./config/database');
 app.listen(process.env.PORT);
-app.use(respond());
 
+require('./api/middlewares/koa')(app);
+
+app.use(respond());
 app.use(router.routes()).use(router.allowedMethods());
 
-router.get('/health', ctx => {
+require('./routes')(app);
+
+router.get('/health', (ctx) => {
     ctx.ok();
 });
 
-router.get('/test', ctx => {
+router.get('/test', (ctx) => {
     const testSql = 'select * from test where test_no=2';
-    return madDatabase
+    return db.madDb
         .promise()
         .query(testSql)
         .then(([rows, fields]) => {
-            return ctx.send(200, {test: rows});
+            return ctx.send(200, { test: rows });
         });
 });
 
@@ -69,7 +60,7 @@ router.get('/test', ctx => {
 /**
  * 처리하지 못한 예외조항 로그기록
  */
-process.on('uncaughtException', err => {
+process.on('uncaughtException', (err) => {
     console.log(err);
 });
 

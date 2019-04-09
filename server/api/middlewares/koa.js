@@ -9,6 +9,26 @@ module.exports = (app) => {
 
     app.use(logger());
 
+    /**
+     * 오류 케이스 처리
+     */
+    app.use(async (ctx, next) => {
+        try {
+            await next();
+        } catch (err) {
+            ctx.type = 'json';
+            ctx.status = err.status || 500;
+            ctx.body = {
+                code: err.status || 500,
+                result: 'FAILURE',
+                error: {
+                    message: err.message,
+                },
+            };
+            ctx.app.emit('error', err, ctx);
+        }
+    });
+
     app.use(
         bodyParser({
             enableTypes: ['json', 'form'],
@@ -22,9 +42,7 @@ module.exports = (app) => {
 
     app.use(
         cors({
-            allowHeaders: 'X-Requested-With',
-            credentials: true,
+            origin: 'https://mad-blog.now.sh/',
         })
     );
-    // app.use(CORS({ origin: 'https://mad-blog.now.sh/' }));
 };
