@@ -27,16 +27,10 @@ const setPost = async (ctx) => {
 const updatePost = async (ctx) => {
     const req = ctx.request.body;
     const postContents = [req.title, req.contents, req.writer, req.pno];
-    const hash = req.hash;
     const write = await POST.updatePost(postContents);
-    // const hashes = await POST.setHash(req.pno, hash);
-    /* TODO..
-     * hash등록 에러시, post는 등록이 되는 상태.
-     * 그 경우 error는 보내지고 있음.
-     * try catch 로 잡아주기.
-     * */
     return ctx.send(200, { write });
 };
+
 module.exports.getPost = getPost;
 module.exports.setPost = setPost;
 module.exports.updatePost = updatePost;

@@ -45,23 +45,6 @@ const Post = {
                 return rows;
             });
     },
-    updateHash: (id, hashes) => {
-        if (hashes) {
-            const hashArr = hashes.split(',');
-            let sql = 'insert into hashes (pno,hContent) values';
-            hashArr.forEach((i) => {
-                sql += `(${id},'${i}'),`;
-            });
-            sql = sql.substring(0, sql.length - 1);
-            return madDatabase
-                .promise()
-                .query(sql)
-                .then(([rows]) => {
-                    return rows;
-                });
-        }
-        return null;
-    },
 };
 
 module.exports = Post;
