@@ -15,5 +15,6 @@ module.exports = (app) => {
 
     router.get(`/api/test2`, testCtrl.getTest);
     router.post(`${POST}`, postCtrl.setPost);
+    router.post(`${POST}/edit`, postCtrl.updatePost);
     router.get(`${POST}/list`, postCtrl.getPost);
 };
