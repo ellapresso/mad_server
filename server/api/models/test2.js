@@ -14,7 +14,7 @@ const Test = {
         // .catch((err) => {
         //     console.log(err);
         // });
-    }
+    },
 };
 
 module.exports = Test;
