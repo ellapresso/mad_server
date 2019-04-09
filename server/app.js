@@ -1,23 +1,20 @@
 'use strict';
 
-// const http = require('http');
 const Koa = require('koa');
 const respond = require('koa-respond');
-require('dotenv').config();
-
-const app = new Koa();
 const Router = require('koa-router');
+const app = new Koa();
 const router = new Router();
 
+require('dotenv').config();
+
 const db = require('./config/database');
-app.listen(process.env.PORT);
-
 require('./api/middlewares/koa')(app);
+require('./routes')(app);
 
+app.listen(process.env.PORT);
 app.use(respond());
 app.use(router.routes()).use(router.allowedMethods());
-
-require('./routes')(app);
 
 router.get('/health', (ctx) => {
     ctx.ok();
