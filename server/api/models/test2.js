@@ -9,6 +9,7 @@ const Test = {
                 console.log('row');
                 return rows;
             });
+        /** 오류처리를 컨트롤러로 보냄 */
         // .catch((err) => {
         //     console.log(err);
         // });

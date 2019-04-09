@@ -1,13 +1,10 @@
 const cors = require('@koa/cors');
-const logger = require('koa-logger');
 const bodyParser = require('koa-bodyparser');
 const helmet = require('koa-helmet');
 
 // Koa 미들웨어 설정
 module.exports = (app) => {
     app.use(helmet());
-
-    app.use(logger());
 
     /**
      * 오류 케이스 처리
