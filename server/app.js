@@ -10,10 +10,11 @@ require('dotenv').config();
 
 const db = require('./config/database');
 require('./api/middlewares/koa')(app);
+
+app.use(respond());
 require('./routes')(app);
 
 app.listen(process.env.PORT);
-app.use(respond());
 app.use(router.routes()).use(router.allowedMethods());
 
 router.get('/health', (ctx) => {
