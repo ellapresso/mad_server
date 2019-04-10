@@ -2,10 +2,12 @@
 
 const Router = require('koa-router');
 
+// const kakaoCtrl = require('./controllers/kakao');
 const testCtrl = require('./controllers/test2');
 const postCtrl = require('./controllers/post');
 const hashCtrl = require('./controllers/hash');
 
+// const KAKAO = '/api/kakao';
 const POST = '/api/post';
 const HASH = '/api/hash';
 // const LIST = '/api/list';
@@ -15,6 +17,9 @@ module.exports = (app) => {
 
     app.use(router.routes());
     app.use(router.allowedMethods());
+
+    // router.get(`/api/kakao/login`, 'kakaoCtrl.getUser');
+    // router.get(`/oauth`, kakaoCtrl.getUser);
 
     router.get(`/api/test2`, testCtrl.getTest);
     router.post(`${POST}`, postCtrl.setPost);

@@ -17,6 +17,10 @@ require('./routes')(app);
 app.listen(process.env.PORT);
 app.use(router.routes()).use(router.allowedMethods());
 
+// 카카오 로그인을 위한 passport
+// const passport = require('passport');
+// require('./api/middlewares/passport')(passport);
+
 router.get('/health', (ctx) => {
     ctx.ok();
 });
