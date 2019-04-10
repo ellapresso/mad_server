@@ -36,7 +36,7 @@ module.exports = (app) => {
             },
         })
     );
-
+    // TODO
     // app.use(
     //     cors({
     //         origin: 'https://mad-blog.now.sh/',

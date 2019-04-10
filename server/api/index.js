@@ -8,6 +8,7 @@ const hashCtrl = require('./controllers/hash');
 
 const POST = '/api/post';
 const HASH = '/api/hash';
+// const LIST = '/api/list';
 
 module.exports = (app) => {
     const router = new Router();
@@ -21,4 +22,9 @@ module.exports = (app) => {
     router.get(`${POST}/list`, postCtrl.getPost);
 
     router.post(`${HASH}/post`, hashCtrl.setHash);
+    router.post(`${HASH}/delete`, hashCtrl.setHash);
+
+    // TODO
+    // router.post(`${LIST}/hash`, listCtrl.hashList);
+    // router.post(`${LIST}/like`, hashCtrl.likeList);
 };
