@@ -17,10 +17,6 @@ require('./routes')(app);
 app.listen(process.env.PORT);
 app.use(router.routes()).use(router.allowedMethods());
 
-// 카카오 로그인을 위한 passport
-// const passport = require('passport');
-// require('./api/middlewares/passport')(passport);
-
 router.get('/health', (ctx) => {
     ctx.ok();
 });
@@ -31,7 +27,9 @@ router.get('/test', (ctx) => {
         .promise()
         .query(testSql)
         .then(([rows, fields]) => {
-            return ctx.send(200, { test: rows });
+            return ctx.send(200, {
+                test: rows,
+            });
         });
 });
 
