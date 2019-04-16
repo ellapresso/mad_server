@@ -5,6 +5,7 @@ const Router = require('koa-router');
 const testCtrl = require('./controllers/test2');
 const postCtrl = require('./controllers/post');
 const hashCtrl = require('./controllers/hash');
+const loginCtrl = require('./controllers/login');
 
 const POST = '/api/post';
 const HASH = '/api/hash';
@@ -23,6 +24,8 @@ module.exports = (app) => {
 
     router.post(`${HASH}/post`, hashCtrl.setHash);
     router.post(`${HASH}/delete`, hashCtrl.setHash);
+
+    router.get(`/kakaoLogin`, loginCtrl.kakaoLogin);
 
     // TODO
     // router.post(`${LIST}/hash`, listCtrl.hashList);
