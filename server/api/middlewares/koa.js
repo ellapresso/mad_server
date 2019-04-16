@@ -48,7 +48,7 @@ module.exports = (app) => {
     //     });
     //     return reqOrigin;
     // };
-
+    // cors origin이 없으면 프리패스, 있는데 아무것도 적지않으면 다 블락.
     app.use(
         cors({
             // origin: checkList,
