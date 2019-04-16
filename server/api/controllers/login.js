@@ -5,6 +5,7 @@
 // 글 목록
 const kakaoLogin = async (ctx) => {
     console.log(ctx);
+    ctx.ok();
     return ctx;
 };
 
