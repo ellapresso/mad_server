@@ -25,7 +25,7 @@ module.exports = (app) => {
     router.post(`${HASH}/post`, hashCtrl.setHash);
     router.post(`${HASH}/delete`, hashCtrl.setHash);
 
-    router.get(`/kakaoLogin`, loginCtrl.kakaoLogin);
+    router.get(`/kakaologin`, loginCtrl.kakaoLogin);
 
     // TODO
     // router.post(`${LIST}/hash`, listCtrl.hashList);
