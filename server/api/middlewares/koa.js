@@ -36,10 +36,18 @@ module.exports = (app) => {
             },
         })
     );
-    // TODO
-    // app.use(
-    //     cors({
-    //         origin: 'https://mad-blog.now.sh/',
-    //     })
-    // );
+    // CORS 설정
+    const acceptList = ['https://mad-blog.now.sh/', 'https://localhost:4000'];
+    const checkList = (ctx) => {
+        const reqOrigin = ctx.accept.headers.origin;
+        if (!acceptList.includes(reqOrigin)) {
+            return ctx.throw('접근불가');
+        }
+        return reqOrigin;
+    };
+    app.use(
+        cors({
+            origin: checkList,
+        })
+    );
 };
