@@ -6,7 +6,6 @@ const kakaoLogin = async (ctx) => {
     const req = ctx.request.body;
     return ctx.send(200, {
         req_body: req,
-        params: ctx.params,
         ctx,
     });
 };
