@@ -5,6 +5,7 @@ const Router = require('koa-router');
 const testCtrl = require('./controllers/test2');
 const postCtrl = require('./controllers/post');
 const hashCtrl = require('./controllers/hash');
+const loginCtrl = require('./controllers/login');
 
 const POST = '/api/post';
 const HASH = '/api/hash';
