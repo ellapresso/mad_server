@@ -4,11 +4,11 @@
 // 글 목록
 const kakaoLogin = async (ctx) => {
     const req = ctx.request.body;
+
     return ctx.send(200, {
-        req_body: req,
+        req_body: req.access_token,
         ctx,
     });
 };
-
 
 module.exports.kakaoLogin = kakaoLogin;
