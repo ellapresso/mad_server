@@ -13,8 +13,7 @@ mad-blog(client) : https://mad-blog.now.sh/
     -   @koa/cors
     -   dotenv
     -   mysql2
-    -   passport
-    -   passport-kakao
+    -   axios
 -   eslint
     -   eslint
     -   eslint-config-google
