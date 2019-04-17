@@ -5,14 +5,14 @@ const DB = require('../../config/database');
 const madDatabase = DB.madDb;
 
 const User = {
-    saveUser: () => {
+    saveUser: (userinfo) => {
         return madDatabase
             .promise()
-            .query('INSERT INTO `users` ( `uNo`, `id`, `nickname`, `profile_image`, `thumbmail_image`, `user_email` , `reg_date`, `update_day`) VALUES ( ? , ? , ? , ? , ? , ?, CURRENT_TIMESTAMP ,  )', contents)
+            .query('INSERT INTO `users` ( `uuid`, `id`, `nickname`, `profile_image`, `thumbnail_image` , `reg_date` ) VALUES ( ? , ? , ? , ? , ?, CURRENT_TIMESTAMP )', userinfo)
             .then(([rows]) => {
                 return rows;
             });
     },
-}
+};
 
 module.exports = User;
