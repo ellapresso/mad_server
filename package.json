@@ -12,8 +12,10 @@
         "koa-helmet": "^4.1.0",
         "koa-respond": "^2.1.0",
         "koa-router": "^7.4.0",
+        "koa-session": "^5.10.1",
         "mysql2": "^1.6.5",
-        "passport": "^0.4.0"
+        "passport": "^0.4.0",
+        "passport-kakao": "0.0.5"
     },
     "devDependencies": {
         "eslint": "^5.16.0",
