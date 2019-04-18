@@ -5,10 +5,10 @@ const DB = require('../../config/database');
 const madDatabase = DB.madDb;
 
 const User = {
-    chkUser: (uuid) => {
+    chkUser: (id) => {
         return madDatabase
             .promise()
-            .query('SELECT FROM `users` where `uuid`=?', uuid)
+            .query('SELECT nickname FROM `users` where `id`=?', id)
             .then(([rows]) => {
                 return rows;
             });
@@ -18,7 +18,7 @@ const User = {
         return madDatabase
             .promise()
             .query(
-                'INSERT INTO `users` ( `uuid`, `id`, `nickname`, `profile_image`, `thumbnail_image` , `reg_date` ) VALUES ( ? , ? , ? , ? , ?, CURRENT_TIMESTAMP )',
+                'INSERT INTO `users` ( `id`, `nickname`, `profile_image`, `thumbnail_image` , `reg_date` ) VALUES (  ? , ? , ? , ?, CURRENT_TIMESTAMP )',
                 userinfo
             )
             .then(([rows]) => {

@@ -11,14 +11,14 @@ const kakaoLogin = async (ctx) => {
         responseType: 'json',
     }).then(function (response) {
         const id = response.data.id;
-        const uuid = response.data.for_partner.uuid;
+        // const uuid = response.data.for_partner.uuid;
         const nickname = response.data.properties.nickname;
         const profile_image = response.data.properties.profile_image;
         const thumbnail_image = response.data.properties.thumbnail_image;
 
-        // const isUser = USER.chkUser(uuid);
+        // const isUser = USER.chkUser(id);
 
-        const userinfo = [uuid, id, nickname, profile_image, thumbnail_image];
+        const userinfo = [id, nickname, profile_image, thumbnail_image];
         const userJoin = USER.saveUser(userinfo);
         ctx.send(200, {
             response: response.data,
