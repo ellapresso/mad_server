@@ -15,6 +15,9 @@ const kakaoLogin = async (ctx) => {
         const nickname = response.data.properties.nickname;
         const profile_image = response.data.properties.profile_image;
         const thumbnail_image = response.data.properties.thumbnail_image;
+
+        // const isUser = USER.chkUser(uuid);
+
         const userinfo = [uuid, id, nickname, profile_image, thumbnail_image];
         const userJoin = USER.saveUser(userinfo);
         ctx.send(200, {

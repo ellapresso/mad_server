@@ -5,14 +5,13 @@ const DB = require('../../config/database');
 const madDatabase = DB.madDb;
 
 const User = {
-    chkUser: (userinfo) => {
+    chkUser: (uuid) => {
         return madDatabase
             .promise()
-            .query('SELECT FROM `users` ')
+            .query('SELECT FROM `users` where `uuid`=?', uuid)
             .then(([rows]) => {
                 return rows;
             });
-        // return;
     },
     // 신규 회원
     saveUser: (userinfo) => {

@@ -12,6 +12,7 @@ const getPost = async (ctx) => {
 const setPost = async (ctx) => {
     const req = ctx.request.body;
     const postContents = [req.title, req.contents, req.writer];
+
     const hash = req.hash;
     const write = await POST.setPost(postContents);
     const hashes = await POST.setHash(write.insertId, hash);
@@ -20,7 +21,10 @@ const setPost = async (ctx) => {
      * 그 경우 error는 보내지고 있음.
      * try catch 로 잡아주기.
      * */
-    return ctx.send(200, { write, hashes });
+    return ctx.send(200, {
+        write,
+        hashes,
+    });
 };
 
 // 글 수정
@@ -28,7 +32,9 @@ const updatePost = async (ctx) => {
     const req = ctx.request.body;
     const postContents = [req.title, req.contents, req.writer, req.pno];
     const write = await POST.updatePost(postContents);
-    return ctx.send(200, { write });
+    return ctx.send(200, {
+        write,
+    });
 };
 
 module.exports.getPost = getPost;
