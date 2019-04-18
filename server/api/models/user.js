@@ -5,14 +5,28 @@ const DB = require('../../config/database');
 const madDatabase = DB.madDb;
 
 const User = {
+    chkUser: (userinfo) => {
+        return madDatabase
+            .promise()
+            .query('SELECT FROM `users` ')
+            .then(([rows]) => {
+                return rows;
+            });
+        // return;
+    },
+    // 신규 회원
     saveUser: (userinfo) => {
         return madDatabase
             .promise()
-            .query('INSERT INTO `users` ( `uuid`, `id`, `nickname`, `profile_image`, `thumbnail_image` , `reg_date` ) VALUES ( ? , ? , ? , ? , ?, CURRENT_TIMESTAMP )', userinfo)
+            .query(
+                'INSERT INTO `users` ( `uuid`, `id`, `nickname`, `profile_image`, `thumbnail_image` , `reg_date` ) VALUES ( ? , ? , ? , ? , ?, CURRENT_TIMESTAMP )',
+                userinfo
+            )
             .then(([rows]) => {
                 return rows;
             });
     },
+    // 기존 사용자 구분
 };
 
 module.exports = User;
