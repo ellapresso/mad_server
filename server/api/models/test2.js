@@ -9,7 +9,7 @@ const Test = {
             .query('select 1')
             .then(([rows]) => {
                 return rows;
-            }).then(() => DB.end());
+            });
         /** 오류처리를 컨트롤러로 보냄 */
         // .catch((err) => {
         //     console.log(err);

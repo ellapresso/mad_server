@@ -30,7 +30,7 @@ router.get('/test', (ctx) => {
             return ctx.send(200, {
                 test: rows,
             });
-        }).then(() => db.madDb.end());
+        });
 });
 
 /**

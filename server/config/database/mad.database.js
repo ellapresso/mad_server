@@ -7,7 +7,7 @@ const madDatabase = mysql.createConnection({
     password: process.env.PASS,
     database: process.env.MADDB,
     waitForConnections: true,
-    // connectionLimit: 10,
+    connectionLimit: 10,
     queueLimit: 0,
 });
 
