@@ -16,9 +16,9 @@ const setHash = async (ctx) => {
 const delHash = async (ctx) => {
     const req = ctx.request.body;
     const pno = req.pno;
-    const id = req.writer;
+    const contents = req.hContent;
     const upDate = req.upDate;
-    const delInfo = [upDate, pno, id];
+    const delInfo = [upDate, pno, contents];
     const delHash = await POST.deleteHash(delInfo);
     return ctx.send(200, {
         delHash,
