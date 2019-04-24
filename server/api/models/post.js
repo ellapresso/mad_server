@@ -47,6 +47,14 @@ const Post = {
                 return rows;
             });
     },
+    deleteHash: (delInfo) => {
+        return madDatabase
+            .promise()
+            .query('UPDATE `posts` SET `isDel` = 1, `upDate`=? where `pno`=? and `writer`=?', delInfo)
+            .then((rows) => {
+                return rows;
+            });
+    },
 };
 
 module.exports = Post;
