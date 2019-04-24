@@ -8,7 +8,7 @@ const Post = {
         return madDatabase
             .promise()
             .query(
-                'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`,`likes`.`lCount` as `likes`,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image`, `posts`.`isDel` as `isDel` from `posts` join(select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno` left join `likes` on `posts`.`pno` = `likes`.`pno` left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel`= 0 order by `posts`.`pno` desc'
+                'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`,`likes`.`lCount` as `likes`,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image` from `posts` join(select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno` left join `likes` on `posts`.`pno` = `likes`.`pno` left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel`= 0 order by `posts`.`pno` desc'
             )
             .then(([rows]) => {
                 return rows;
