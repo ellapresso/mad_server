@@ -23,14 +23,11 @@ module.exports = (app) => {
     router.post(`${POST}/del`, postCtrl.delPost);
     router.get(`${POST}/list`, postCtrl.getPost);
 
-    router.post(`${HASH}/post`, hashCtrl.setHash);
-    router.post(`${HASH}/delete`, hashCtrl.setHash);
+    router.post(`${HASH}`, hashCtrl.setHash);
+    router.post(`${HASH}/del`, hashCtrl.delHash);
 
-    // router.get(`/kakaologin`, loginCtrl.kakaoLogin);
     router.post(`/kakaologin`, loginCtrl.kakaoLogin);
 
     // TODO
-    router.post(`${HASH}`, hashCtrl.setHash);
-    router.post(`${HASH}/del`, hashCtrl.delHash);
     // router.post(`${LIST}/like`, hashCtrl.likeList);
 };
