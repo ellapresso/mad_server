@@ -37,6 +37,20 @@ const updatePost = async (ctx) => {
     });
 };
 
+// 글 삭제
+const delPost = async (ctx) => {
+    const req = ctx.request.body;
+    const pno = req.pno;
+    const id = req.writer;
+    const upDate = req.upDate;
+    const delInfo = [upDate, pno, id];
+    const delPost = await POST.deletePost(delInfo);
+    return ctx.send(200, {
+        delPost,
+    });
+};
+
 module.exports.getPost = getPost;
 module.exports.setPost = setPost;
 module.exports.updatePost = updatePost;
+module.exports.delPost = delPost;
