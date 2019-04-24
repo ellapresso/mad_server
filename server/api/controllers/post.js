@@ -30,7 +30,7 @@ const setPost = async (ctx) => {
 // 글 수정
 const updatePost = async (ctx) => {
     const req = ctx.request.body;
-    const postContents = [req.title, req.contents, req.writer, req.pno, req.upDate];
+    const postContents = [req.title, req.contents, req.writer, req.upDate, req.pno];
     const write = await POST.updatePost(postContents);
     return ctx.send(200, {
         write,
