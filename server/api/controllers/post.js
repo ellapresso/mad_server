@@ -4,7 +4,8 @@ const POST = require('../models/post');
 
 // 글 목록
 const getPost = async (ctx) => {
-    const post = await POST.getPost();
+    const userId = ctx.request.body.userId;
+    const post = await POST.getPost(userId);
     return ctx.send(200, post);
 };
 

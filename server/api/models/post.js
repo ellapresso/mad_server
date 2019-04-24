@@ -1,15 +1,20 @@
+/* eslint-disable max-len */
 'use strict';
 
 const DB = require('../../config/database');
 
 const madDatabase = DB.madDb;
 const Post = {
-    getPost: () => {
+    getPost: (userId) => {
+        let sql =
+            'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`,`likes`.`lCount` as `likes`,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image` from `posts` join(select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno` left join `likes` on `posts`.`pno` = `likes`.`pno` left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel`= 0';
+        if (userId) {
+            sql += ' and id = ' + userId;
+        }
+        sql += ' order by `posts`.`pno` desc';
         return madDatabase
             .promise()
-            .query(
-                'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`,`likes`.`lCount` as `likes`,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image` from `posts` join(select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno` left join `likes` on `posts`.`pno` = `likes`.`pno` left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel`= 0 order by `posts`.`pno` desc'
-            )
+            .query(sql)
             .then(([rows]) => {
                 return rows;
             });
