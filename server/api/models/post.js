@@ -42,7 +42,7 @@ const Post = {
     updatePost: (contents) => {
         return madDatabase
             .promise()
-            .query('UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=CURRENT_TIMESTAMP where pno =?', contents)
+            .query('UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=? where pno =?', contents)
             .then(([rows]) => {
                 return rows;
             });
