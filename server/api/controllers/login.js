@@ -16,12 +16,11 @@ const kakaoLogin = async (ctx) => {
         const profile_image = response.data.properties.profile_image;
         const thumbnail_image = response.data.properties.thumbnail_image;
 
-        // const isUser = USER.chkUser(id);
-
-        const userinfo = [id, nickname, profile_image, thumbnail_image];
+        const userinfo = [id, nickname, profile_image, thumbnail_image, nickname, profile_image, thumbnail_image];
         const userJoin = USER.saveUser(userinfo);
         ctx.send(200, {
             response: response.data,
+            id,
             userJoin,
         });
     });
