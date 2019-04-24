@@ -11,7 +11,7 @@ const getPost = async (ctx) => {
 // 글 쓰기
 const setPost = async (ctx) => {
     const req = ctx.request.body;
-    const postContents = [req.title, req.contents, req.writer];
+    const postContents = [req.title, req.contents, req.writer, req.wrDate];
 
     const hash = req.hash;
     const write = await POST.setPost(postContents);
