@@ -7,12 +7,12 @@ const madDatabase = DB.madDb;
 const Post = {
     getPost: (userId) => {
         let sql =
-            'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`,`likes`.`lCount` as `likes`,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image`';
+            'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`, if(`likes`,`likes`,0) as likes ,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image`';
         if (userId) {
             sql += ', if(users.id=' + userId + ', true, false) as nowUser';
         }
         // TODO 걍 너무 길어서 대충 잘라 놓음
-        sql += ' from `posts` join(select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno` left join `likes` on `posts`.`pno` = `likes`.`pno`';
+        sql += ' from `posts` join(select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno` left join (select pno, count(lno) as likes from likes group by pno) likes on `posts`.`pno` = `likes`.`pno`';
         sql += ' left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel`= 0';
         sql += ' order by `posts`.`pno` desc';
         return madDatabase
