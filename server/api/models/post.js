@@ -9,14 +9,18 @@ const Post = {
         let sql =
             'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`, if(`likes`,`likes`,0) as likes ,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image`';
         if (userId) {
-            sql += ', if(users.id=' + userId + ', true, false) as nowUser';
+            sql += ', if(users.id=' + userId + ', true, false) as nowUser, if(fav.luser,true,false) as love';
         }
-        // TODO 걍 너무 길어서 대충 잘라 놓음
         sql += ' from `posts`';
         sql += ' left join (select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno`';
         sql += ' left join (select pno, count(lno) as likes from likes group by pno) likes on `posts`.`pno` = `likes`.`pno`';
-        sql += ' left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel`= 0';
+        if (userId) {
+            sql += ' left join (select pno,luser from likes where luser = ' + userId + ') fav on fav.pno = posts.pno';
+        }
+        sql += ' left join `users` on `users`.`id` = `posts`.`writer`';
+        sql += ' where `posts`.`isDel`= 0';
         sql += ' order by `posts`.`pno` desc';
+        // 최종 쿼리
         sql = 'select * from (' + sql + ') a group by pno';
         return madDatabase
             .promise()
