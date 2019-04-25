@@ -61,14 +61,6 @@ const Post = {
                 return rows;
             });
     },
-    // updateHash: (hContent) => {
-    //     return madDatabase
-    //         .promise()
-    //         .query('', hContent)
-    //         .then(([rows]) => {
-    //             return rows;
-    //         });
-    // },
     deletePost: (delInfo) => {
         return madDatabase
             .promise()
@@ -77,13 +69,21 @@ const Post = {
                 return rows;
             });
     },
-    deleteHash: (delInfo) => {
-        return madDatabase
-            .promise()
-            .query('UPDATE `hashes` SET `isDel` = 1, `upDate`=? where `pno`=? and `hContent`=?', delInfo)
-            .then((rows) => {
-                return rows;
+    deleteHash: (date, pno, hashes) => {
+        if (hashes) {
+            const hashArr = hashes.split(',');
+            let sql = 'UPDATE `hashes` SET `isDel` = 1, `upDate`=? where `pno`=? and (';
+            hashArr.forEach((i) => {
+                sql += ` hContent = '${i}' or`;
             });
+            sql = sql.substring(0, sql.length - 3) + ')';
+            return madDatabase
+                .promise()
+                .query(sql, [date, pno])
+                .then((rows) => {
+                    return rows;
+                });
+        }
     },
     getContents: (info) => {
         let sql = 'select `posts`.`pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes';
