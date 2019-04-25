@@ -5,7 +5,7 @@ const Router = require('koa-router');
 const testCtrl = require('./controllers/test2');
 const postCtrl = require('./controllers/post');
 const hashCtrl = require('./controllers/hash');
-// const likeCtrl = require('./controllers/like');
+const likeCtrl = require('./controllers/like');
 const loginCtrl = require('./controllers/login');
 
 const POST = '/api/post';
@@ -29,6 +29,6 @@ module.exports = (app) => {
     router.post(`/kakaologin`, loginCtrl.kakaoLogin);
 
     // TODO
-    // router.post(`/api/like`, likeCtrl.setLike);
+    router.post(`/api/like`, likeCtrl.setLike);
     // router.post(`/api/unlike`, likeCtrl.delLike);
 };
