@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-'use strict';
+// 'use strict';
 
 const DB = require('../../config/database');
 

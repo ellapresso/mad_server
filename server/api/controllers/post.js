@@ -57,9 +57,9 @@ const getContents = async (ctx) => {
     const pno = req.pno;
     const id = req.userId;
     const info = [pno, id];
-    const getContents = await POST.getContents(info);
+    const getContent = await POST.getContents(info);
     return ctx.send(200, {
-        getContents,
+        getContent: getContent[0],
     });
 };
 
