@@ -15,7 +15,7 @@ const Like = {
     delLike: (pno, id) => {
         return madDatabase
             .promise()
-            .query('DELETE FROM likes WEHRE pno = ? and luser = ?', [pno, id])
+            .query('DELETE FROM likes WHERE pno = ? and luser = ?', [pno, id])
             .then(([rows]) => {
                 return rows;
             });
