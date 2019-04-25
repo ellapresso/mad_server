@@ -61,6 +61,14 @@ const Post = {
                 return rows;
             });
     },
+    updateHash: (hContent) => {
+        return madDatabase
+            .promise()
+            .query('', hContent)
+            .then(([rows]) => {
+                return rows;
+            });
+    },
     deletePost: (delInfo) => {
         return madDatabase
             .promise()
@@ -78,9 +86,13 @@ const Post = {
             });
     },
     getContents: (info) => {
+        let sql = 'select `posts`.`pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes';
+        sql += ' from `posts` left join `users` on `posts`.`writer` = `users`.`id`';
+        sql += ' left join (select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno`';
+        sql += ' where `posts`.`pno` = ? and writer = ? and isDel = 0';
         return madDatabase
             .promise()
-            .query('select `pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day` from `posts` left join `users` on `posts`.`writer` = `users`.`id` where `pno` = ? and writer = ?', info)
+            .query(sql, info)
             .then((rows) => {
                 return rows;
             });
