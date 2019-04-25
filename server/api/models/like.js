@@ -12,5 +12,14 @@ const Like = {
                 return rows;
             });
     },
+    delLike: (pno, id) => {
+        return madDatabase
+            .promise()
+            .query('DELETE FROM likes WEHRE pno = ? and luser = ?', [pno, id])
+            .then(([rows]) => {
+                return rows;
+            });
+    },
 };
+
 module.exports = Like;

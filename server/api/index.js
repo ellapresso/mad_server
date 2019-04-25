@@ -30,5 +30,5 @@ module.exports = (app) => {
 
     // TODO
     router.post(`/api/like`, likeCtrl.setLike);
-    // router.post(`/api/unlike`, likeCtrl.delLike);
+    router.post(`/api/unlike`, likeCtrl.delLike);
 };

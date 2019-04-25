@@ -2,9 +2,8 @@
 
 const LIKE = require('../models/like');
 
-// 해시태그 등록
+// 좋아요
 const setLike = async (ctx) => {
-    console.log(1234);
     const req = ctx.request.body;
     const pno = req.pno;
     const userId = req.userId;
@@ -12,8 +11,22 @@ const setLike = async (ctx) => {
     return ctx.send(200, {
         pno,
         userId,
-        // setLike,
+        setLike,
+    });
+};
+
+// 좋아요 해제
+const delLike = async (ctx) => {
+    const req = ctx.request.body;
+    const pno = req.pno;
+    const userId = req.userId;
+    const delLike = await LIKE.delLike(pno, userId);
+    return ctx.send(200, {
+        pno,
+        userId,
+        delLike,
     });
 };
 
 module.exports.setLike = setLike;
+module.exports.delLike = delLike;
