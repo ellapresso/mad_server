@@ -32,9 +32,14 @@ const setPost = async (ctx) => {
 const updatePost = async (ctx) => {
     const req = ctx.request.body;
     const postContents = [req.title, req.contents, req.writer, req.upDate, req.pno];
+    const delInfo = [req.upDate, req.pno, req.delHash];
     const write = await POST.updatePost(postContents);
+    const addHash = await POST.setHash(req.pno, req.addHash);
+    const delHash = await POST.deleteHash(delInfo);
     return ctx.send(200, {
         write,
+        delHash,
+        addHash,
     });
 };
 

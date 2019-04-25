@@ -29,6 +29,7 @@ module.exports = (app) => {
 
     router.post(`${HASH}`, hashCtrl.setHash);
     router.post(`${HASH}/del`, hashCtrl.delHash);
+    router.post(`${HASH}/chart`, hashCtrl.cntHash);
 
     router.post(`/api/like`, likeCtrl.setLike);
     router.post(`/api/unlike`, likeCtrl.delLike);

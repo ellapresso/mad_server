@@ -61,14 +61,14 @@ const Post = {
                 return rows;
             });
     },
-    updateHash: (hContent) => {
-        return madDatabase
-            .promise()
-            .query('', hContent)
-            .then(([rows]) => {
-                return rows;
-            });
-    },
+    // updateHash: (hContent) => {
+    //     return madDatabase
+    //         .promise()
+    //         .query('', hContent)
+    //         .then(([rows]) => {
+    //             return rows;
+    //         });
+    // },
     deletePost: (delInfo) => {
         return madDatabase
             .promise()

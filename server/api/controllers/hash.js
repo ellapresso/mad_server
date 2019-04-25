@@ -25,5 +25,13 @@ const delHash = async (ctx) => {
     });
 };
 
+const cntHash = async (ctx) => {
+    const cntHash = await POST.cntHash();
+    return ctx.send(200, {
+        cntHash,
+    });
+};
+
 module.exports.setHash = setHash;
 module.exports.delHash = delHash;
+module.exports.cntHash = cntHash;
