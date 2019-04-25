@@ -51,7 +51,20 @@ const delPost = async (ctx) => {
     });
 };
 
+// 글 상세
+const getContents = async (ctx) => {
+    const req = ctx.request.body;
+    const pno = req.pno;
+    const id = req.userId;
+    const info = [pno, id];
+    const getContents = await POST.getContents(info);
+    return ctx.send(200, {
+        getContents,
+    });
+};
+
 module.exports.getPost = getPost;
 module.exports.setPost = setPost;
 module.exports.updatePost = updatePost;
 module.exports.delPost = delPost;
+module.exports.getContents = getContents;

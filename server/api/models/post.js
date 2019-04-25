@@ -77,6 +77,14 @@ const Post = {
                 return rows;
             });
     },
+    getContents: (info) => {
+        return madDatabase
+            .promise()
+            .query('select `pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day` from `posts` left join `users` on `posts`.`writer` = `users`.`id` where `pno` = ? and writer = ?', info)
+            .then((rows) => {
+                return rows;
+            });
+    },
 };
 
 module.exports = Post;

@@ -18,17 +18,18 @@ module.exports = (app) => {
     app.use(router.allowedMethods());
 
     router.get(`/api/test2`, testCtrl.getTest);
+
+    router.post(`/kakaologin`, loginCtrl.kakaoLogin);
+
     router.post(`${POST}`, postCtrl.setPost);
     router.post(`${POST}/edit`, postCtrl.updatePost);
     router.post(`${POST}/del`, postCtrl.delPost);
     router.post(`${POST}/list`, postCtrl.getPost);
+    router.post(`${POST}/contents`, postCtrl.getContents);
 
     router.post(`${HASH}`, hashCtrl.setHash);
     router.post(`${HASH}/del`, hashCtrl.delHash);
 
-    router.post(`/kakaologin`, loginCtrl.kakaoLogin);
-
-    // TODO
     router.post(`/api/like`, likeCtrl.setLike);
     router.post(`/api/unlike`, likeCtrl.delLike);
 };
