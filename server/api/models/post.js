@@ -97,9 +97,17 @@ const Post = {
                 return rows;
             });
     },
+    rankHash: () => {
+        return madDatabase
+            .promise()
+            .query('select GROUP_CONCAT(`ranks`.hContent SEPARATOR ",") as rankHash from (select count(hno) cnt, hContent from hashes h left join posts p on h.pno = p.pno where p.isDel = 0 group by hContent order by cnt desc limit 7) as ranks ')
+            .then((rows) => {
+                return rows;
+            });
+    },
 };
 
 module.exports = Post;
 
 
-// TODO 삭제된 데이터 쿼리에 추가
+// TODO 삭제된 데이터 쿼리에 추가 (isDel= ?)

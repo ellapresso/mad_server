@@ -25,13 +25,13 @@ const delHash = async (ctx) => {
     });
 };
 
-const cntHash = async (ctx) => {
-    const cntHash = await POST.cntHash();
+const rankHash = async (ctx) => {
+    const rankHash = await POST.rankHash();
     return ctx.send(200, {
-        cntHash,
+        rankHash: rankHash[0],
     });
 };
 
 module.exports.setHash = setHash;
 module.exports.delHash = delHash;
-module.exports.cntHash = cntHash;
+module.exports.rankHash = rankHash;
