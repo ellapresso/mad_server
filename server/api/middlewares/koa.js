@@ -38,7 +38,7 @@ module.exports = (app) => {
     );
 
     // CORS 설정
-    const acceptList = [/mad-blog\.now\.sh/, /localhost:4000/, /localhost/];
+    const acceptList = [/mad-blog\.now\.sh/, /localhost/];
     const checkList = (ctx) => {
         const reqOrigin = ctx.accept.headers.origin;
         let blocked = true;
@@ -50,7 +50,7 @@ module.exports = (app) => {
         if (blocked) {
             return ctx.throw('not allow');
         }
-        return reqOrigin;
+        return true;
     };
     // cors origin이 없으면 프리패스, 있는데 아무것도 적지않으면 다 블락.
     app.use(
