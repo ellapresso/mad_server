@@ -38,14 +38,18 @@ module.exports = (app) => {
     );
 
     // CORS 설정
-    const acceptList = [/mad-blog.now.sh/, /localhost:4000/, /localhost/, /localhost:3000/];
+    const acceptList = [/mad-blog\.now\.sh/, /localhost:4000/, /localhost/];
     const checkList = (ctx) => {
-        const reqOrigin = ctx.headers.origin;
+        const reqOrigin = ctx.accept.headers.origin;
+        let blocked = true;
         acceptList.forEach((e) => {
-            if (!e.test(reqOrigin)) {
-                return ctx.throw('접근 불가');
+            if (e.test(reqOrigin)) {
+                blocked = false;
             }
         });
+        if (blocked) {
+            return ctx.throw('not allow');
+        }
         return reqOrigin;
     };
     // cors origin이 없으면 프리패스, 있는데 아무것도 적지않으면 다 블락.
