@@ -11,7 +11,6 @@ const setLike = async (ctx) => {
     return ctx.send(200, {
         pno,
         userId,
-        setLike,
     });
 };
 
@@ -24,7 +23,6 @@ const delLike = async (ctx) => {
     return ctx.send(200, {
         pno,
         userId,
-        delLike,
     });
 };
 

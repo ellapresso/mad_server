@@ -7,7 +7,7 @@ const Like = {
     setLike: (pno, id) => {
         return madDatabase
             .promise()
-            .query('INSERT INTO likes(pno,luser) VALUES( ?, ? )', [pno, id])
+            .query('INSERT INTO likes(pno,luser) SELECT ?, ? FROM DUAL WHERE NOT EXISTS (SELECT pno, luser FROM likes WHERE pno = ? and luser = ?)', [pno, id, pno, id])
             .then(([rows]) => {
                 return rows;
             });
