@@ -38,7 +38,7 @@ module.exports = (app) => {
     );
 
     // CORS 설정
-    const acceptList = [/mad-blog.now.sh/, /localhost:4000/, /localhost/, /localhost:3000/];
+    const acceptList = [/mad-blog.now.sh/, /localhost:4000/, /localhost/, /localhost:3000/, 'https://mad-blog.now.sh'];
     const checkList = (ctx) => {
         const reqOrigin = ctx.accept.headers.origin;
         acceptList.forEach((e) => {
