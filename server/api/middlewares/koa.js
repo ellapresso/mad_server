@@ -37,21 +37,21 @@ module.exports = (app) => {
         })
     );
 
-    // // CORS 설정
-    // const acceptList = [/mad-blog.now.sh/, /localhost:4000/, /localhost/];
-    // const checkList = (ctx) => {
-    //     const reqOrigin = ctx.accept.headers.origin;
-    //     acceptList.forEach((e) => {
-    //         if (!e.test(reqOrigin)) {
-    //             return ctx.throw('접근 불가');
-    //         }
-    //     });
-    //     return reqOrigin;
-    // };
+    // CORS 설정
+    const acceptList = [/mad-blog.now.sh/, /localhost:4000/, /localhost/, /localhost:3000/];
+    const checkList = (ctx) => {
+        const reqOrigin = ctx.accept.headers.origin;
+        acceptList.forEach((e) => {
+            if (!e.test(reqOrigin)) {
+                return ctx.throw('접근 불가');
+            }
+        });
+        return reqOrigin;
+    };
     // cors origin이 없으면 프리패스, 있는데 아무것도 적지않으면 다 블락.
     app.use(
         cors({
-            // origin: checkList,
+            origin: checkList,
         })
     );
 };
