@@ -9,7 +9,6 @@ const Like = {
         sql += 'WHERE NOT EXISTS (SELECT `pno`, `luser` FROM `likes` WHERE `pno` = ? AND `luser` = ?)';
         return madDatabase
             .promise()
-            // eslint-disable-next-line max-len
             .query(sql, [pno, id, pno, id])
             .then(([rows]) => {
                 return rows;
