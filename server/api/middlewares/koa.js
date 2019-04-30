@@ -57,6 +57,7 @@ module.exports = (app) => {
     app.use(
         cors({
             origin: checkList,
+            maxAge: 3600,
         })
     );
 };
