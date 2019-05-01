@@ -2,7 +2,6 @@
 
 const Router = require('koa-router');
 
-const testCtrl = require('./controllers/test2');
 const postCtrl = require('./controllers/post');
 const hashCtrl = require('./controllers/hash');
 const likeCtrl = require('./controllers/like');
@@ -16,8 +15,6 @@ module.exports = (app) => {
 
     app.use(router.routes());
     app.use(router.allowedMethods());
-
-    router.get(`/api/test2`, testCtrl.getTest);
 
     router.post(`/kakaologin`, loginCtrl.kakaoLogin);
 
