@@ -26,5 +26,14 @@ const delLike = async (ctx) => {
     });
 };
 
+// 좋아요 차트
+const chartLike = async (ctx) => {
+    const chartLike = await LIKE.chartLike();
+    return ctx.send(200, {
+        chartLike,
+    });
+};
+
 module.exports.setLike = setLike;
 module.exports.delLike = delLike;
+module.exports.chartLike = chartLike;

@@ -20,6 +20,14 @@ const Like = {
                 return rows;
             });
     },
+    chartLike: () => {
+        return madDatabase
+            .promise()
+            .query('select pno,count(luser) likeCnt from likes group by pno order by count(luser) desc;')
+            .then(([rows]) => {
+                return rows;
+            });
+    },
 };
 
 module.exports = Like;
