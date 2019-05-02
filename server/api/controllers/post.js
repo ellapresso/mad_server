@@ -8,7 +8,11 @@ const getPost = async (ctx) => {
     const userId = ctx.request.body.userId;
     const page = ctx.request.body.page;
     const post = await POST.getPost(userId, page);
-    return ctx.send(200, post);
+    const totalPost = await POST.getTotal();
+    return ctx.send(200, {
+        post,
+        totalPost,
+    });
 };
 
 // 글 쓰기

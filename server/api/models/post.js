@@ -32,7 +32,14 @@ const Post = {
             .promise()
             .query(sql)
             .then(([rows]) => {
-                console.log(sql);
+                return rows;
+            });
+    },
+    getTotal: () => {
+        return madDatabase
+            .promise()
+            .query('select count(`pno`) as `totalCnt` from `posts` where `isDel`=0')
+            .then(([rows]) => {
                 return rows;
             });
     },
