@@ -40,7 +40,7 @@ const Post = {
             .promise()
             .query('select count(`pno`) as `totalCnt` from `posts` where `isDel`=0')
             .then(([rows]) => {
-                return rows;
+                return rows[0];
             });
     },
     setPost: (contents) => {
