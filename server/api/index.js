@@ -31,6 +31,6 @@ module.exports = (app) => {
     router.post(`/api/like`, likeCtrl.setLike);
     router.post(`/api/unlike`, likeCtrl.delLike);
 
-    // router.get(`/api/chart-hash`, hashCtrl.chartHash);
+    router.get(`/api/chart-hash`, hashCtrl.chartHash);
     router.get(`/api/chart-like`, likeCtrl.chartLike);
 };
