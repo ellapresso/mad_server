@@ -6,7 +6,8 @@ const HASH = require('../models/hash');
 // 글 목록
 const getPost = async (ctx) => {
     const userId = ctx.request.body.userId;
-    const post = await POST.getPost(userId);
+    const page = ctx.request.body.page;
+    const post = await POST.getPost(userId, page);
     return ctx.send(200, post);
 };
 

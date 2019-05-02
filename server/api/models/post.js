@@ -5,7 +5,7 @@ const DB = require('../../config/database');
 
 const madDatabase = DB.madDb;
 const Post = {
-    getPost: (userId) => {
+    getPost: (userId, page) => {
         let sql =
             'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`, if(`likes`,`likes`,0) as likes ,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image`';
         if (userId) {
@@ -21,10 +21,18 @@ const Post = {
         sql += ' where `posts`.`isDel`= 0';
         // 최종 쿼리
         sql = 'select * from (' + sql + ') a group by `pno` order by `pno` desc';
+
+        // 페이징
+        if (page) {
+            sql += ` limit ${page}`;
+        } else {
+            sql += ' limit 4';
+        }
         return madDatabase
             .promise()
             .query(sql)
             .then(([rows]) => {
+                console.log(sql);
                 return rows;
             });
     },
