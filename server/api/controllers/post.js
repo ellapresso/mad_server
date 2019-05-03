@@ -9,10 +9,9 @@ const getPost = async (ctx) => {
     const page = ctx.request.body.page;
     const word = ctx.request.body.search;
     const post = await POST.getPost(userId, page, word);
-    const totalPost = await POST.getTotal();
     return ctx.send(200, {
         post,
-        totalPost,
+        totalCnt: post.length,
     });
 };
 
