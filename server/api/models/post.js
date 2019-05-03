@@ -40,10 +40,22 @@ const Post = {
                 return rows;
             });
     },
-    getTotal: () => {
+    getTotal: (word) => {
+        let sql = 'select * from';
+        sql += ' (select `posts`.`pno`, `users`.`nickname` as `writer`, `title`, `contents`, `hashes`, if (`likes`, `likes`, 0) as likes, `wrDate`, `upDate`, `users`.`thumbnail_image` as `thumbnail_image`';
+        sql += ' from `posts`';
+        sql += ' left join';
+        sql += ' (select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno` ) `hash` on `posts`.`pno` = `hash`.`pno`';
+        sql += ' left join ( select pno, count(lno) as likes from likes group by pno ) likes on `posts`.`pno` = `likes`.`pno`';
+        sql += ' left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel` = 0) a';
+        if (word) {
+            sql += ' where `writer` like "%' + word + '%" or `hashes` like "%' + word + '%" or `title` like "%' + word + '%"';
+        }
+        sql += ' group by `pno` order by `pno` desc ';
+        sql = 'select count(*) as `totalCnt` from(' + sql + ') b';
         return madDatabase
             .promise()
-            .query('select count(`pno`) as `totalCnt` from `posts` where `isDel`=0')
+            .query(sql)
             .then(([rows]) => {
                 return rows[0];
             });
