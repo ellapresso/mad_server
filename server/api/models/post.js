@@ -5,7 +5,7 @@ const DB = require('../../config/database');
 
 const madDatabase = DB.madDb;
 const Post = {
-    getPost: (userId, page) => {
+    getPost: (userId, page, word) => {
         let sql =
             'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`, if(`likes`,`likes`,0) as likes ,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image`';
         if (userId) {
@@ -19,8 +19,13 @@ const Post = {
         }
         sql += ' left join `users` on `users`.`id` = `posts`.`writer`';
         sql += ' where `posts`.`isDel`= 0';
-        // 최종 쿼리
-        sql = 'select * from (' + sql + ') a group by `pno` order by `pno` desc';
+
+        // 최종 쿼리 + 검색쿼리
+        sql = 'select * from (' + sql + ') a';
+        if (word) {
+            sql += ' where writer like "%' + word + '%" or hashes like "%' + word + '%" or title like "%' + word + '%"';
+        }
+        sql += ' group by `pno` order by `pno` desc';
 
         // 페이징
         if (page) {

@@ -7,7 +7,8 @@ const HASH = require('../models/hash');
 const getPost = async (ctx) => {
     const userId = ctx.request.body.userId;
     const page = ctx.request.body.page;
-    const post = await POST.getPost(userId, page);
+    const word = ctx.request.body.search;
+    const post = await POST.getPost(userId, page, word);
     const totalPost = await POST.getTotal();
     return ctx.send(200, {
         post,
