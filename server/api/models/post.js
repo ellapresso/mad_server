@@ -41,18 +41,17 @@ const Post = {
             });
     },
     getTotal: (word) => {
-        let sql = 'select * from';
-        sql += ' (select `posts`.`pno`, `users`.`nickname` as `writer`, `title`, `contents`, `hashes`, if (`likes`, `likes`, 0) as likes, `wrDate`, `upDate`, `users`.`thumbnail_image` as `thumbnail_image`';
-        sql += ' from `posts`';
-        sql += ' left join';
-        sql += ' (select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno` ) `hash` on `posts`.`pno` = `hash`.`pno`';
-        sql += ' left join ( select pno, count(lno) as likes from likes group by pno ) likes on `posts`.`pno` = `likes`.`pno`';
-        sql += ' left join `users` on `users`.`id` = `posts`.`writer` where `posts`.`isDel` = 0) a';
+        let sql = 'SELECT * FROM';
+        sql += ' (SELECT `posts`.`pno`, `users`.`nickname` AS `writer`, `title`, `contents`, `hashes`, IF (`likes`, `likes`, 0) AS likes, `wrDate`, `upDate`, `users`.`thumbnail_image` AS `thumbnail_image`';
+        sql += ' FROM `posts`';
+        sql += ' LEFT JOIN (SELECT `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") AS `hashes` FROM `hashes` WHERE `isDel` = 0 GROUP BY `pno` ) `hash` ON `posts`.`pno` = `hash`.`pno`';
+        sql += ' LEFT JOIN ( SELECT pno, count(lno) AS likes FROM likes GROUP BY PNO ) likes ON `posts`.`pno` = `likes`.`pno`';
+        sql += ' LEFT JOIN `users` ON `users`.`id` = `posts`.`writer` WHERE `posts`.`isDel` = 0) a';
         if (word) {
-            sql += ' where `writer` like "%' + word + '%" or `hashes` like "%' + word + '%" or `title` like "%' + word + '%"';
+            sql += ' WHERE `writer` LIKE "%' + word + '%" OR `hashes` LIKE "%' + word + '%" OR `title` LIKE "%' + word + '%"';
         }
-        sql += ' group by `pno` order by `pno` desc ';
-        sql = 'select count(*) as `totalCnt` from(' + sql + ') b';
+        sql += ' GROUP BY `pno` ORDER BY `pno` desc ';
+        sql = 'SELECT count(*) AS `totalCnt` FROM(' + sql + ') b';
         return madDatabase
             .promise()
             .query(sql)
@@ -70,7 +69,7 @@ const Post = {
             });
     },
     updatePost: (contents) => {
-        const sql = 'UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=? where `pno` =? and `isDel` = 0';
+        const sql = 'UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=? WHERE `pno` =? AND `isDel` = 0';
         return madDatabase
             .promise()
             .query(sql, contents)
@@ -79,7 +78,7 @@ const Post = {
             });
     },
     deletePost: (delInfo) => {
-        const sql = 'UPDATE `posts` SET `isDel` = 1, `upDate`=? where `pno`=? and `writer`=?';
+        const sql = 'UPDATE `posts` SET `isDel` = 1, `upDate`=? WHERE `pno`=? AND `writer`=?';
         return madDatabase
             .promise()
             .query(sql, delInfo)
@@ -88,7 +87,7 @@ const Post = {
             });
     },
     deleteHash: (upDate, pno) => {
-        const sql = 'UPDATE `hashes` SET `isDel` = 1, `upDate`=? where `pno`=? ';
+        const sql = 'UPDATE `hashes` SET `isDel` = 1, `upDate`=? WHERE `pno`=? ';
         return madDatabase
             .promise()
             .query(sql, [upDate, pno])
@@ -97,10 +96,10 @@ const Post = {
             });
     },
     getContents: (info) => {
-        let sql = 'select `posts`.`pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes';
-        sql += ' from `posts` left join `users` on `posts`.`writer` = `users`.`id`';
-        sql += ' left join (select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno`';
-        sql += ' where `posts`.`pno` = ? and `writer` = ? and `isDel` = 0';
+        let sql = 'SELECT `posts`.`pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes';
+        sql += ' FROM `posts` LEFT JOIN `users` ON `posts`.`writer` = `users`.`id`';
+        sql += ' LEFT JOIN (SELECT `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") AS `hashes` FROM `hashes` WHERE `isDel` = 0 GROUP BY `pno`) `hash` ON `posts`.`pno` = `hash`.`pno`';
+        sql += ' WHERE `posts`.`pno` = ? AND `writer` = ? AND `isDel` = 0';
         return madDatabase
             .promise()
             .query(sql, info)
