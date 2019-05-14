@@ -27,6 +27,14 @@ const User = {
                 return rows;
             });
     },
+    getUserInfo: (id) => {
+        return madDatabase
+            .promise()
+            .query()
+            .then(([rows]) => {
+                return rows;
+            });
+    },
 };
 
 module.exports = User;

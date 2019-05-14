@@ -6,9 +6,11 @@ const postCtrl = require('./controllers/post');
 const hashCtrl = require('./controllers/hash');
 const likeCtrl = require('./controllers/like');
 const loginCtrl = require('./controllers/login');
+const userCtrl = require('./controllers/user');
 
 const POST = '/api/post';
 const HASH = '/api/hash';
+const USER = '/api/user';
 
 module.exports = (app) => {
     const router = new Router();
@@ -34,4 +36,7 @@ module.exports = (app) => {
 
     router.get(`/api/chart-hash`, hashCtrl.chartHash);
     router.get(`/api/chart-like`, likeCtrl.chartLike);
+
+    // 마이페이지
+    router.get(`${USER}`, userCtrl.getUserInfo);
 };
