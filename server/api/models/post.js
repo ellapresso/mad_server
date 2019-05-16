@@ -7,31 +7,31 @@ const madDatabase = DB.madDb;
 const Post = {
     getPost: (userId, page, word) => {
         let sql =
-            'select `posts`.`pno`,`users`.`nickname` as `writer`,`title`,`contents`,`hashes`, if(`likes`,`likes`,0) as likes ,`wrDate`,`upDate`,`users`.`thumbnail_image` as `thumbnail_image`';
+            'SELECT `posts`.`pno`,`users`.`nickname` AS `writer`,`title`,`contents`,`hashes`, IF(`likes`,`likes`,0) AS likes ,`wrDate`,`upDate`,`users`.`thumbnail_image` AS `thumbnail_image`';
         if (userId) {
-            sql += ', if(`users`.`id`=' + userId + ', true, false) as `nowUser`, if(`fav`.`luser`,true,false) as love';
+            sql += ', IF(`users`.`id`=' + userId + ', true, false) AS `nowUser`, IF(`fav`.`luser`,true,false) AS love';
         }
-        sql += ' from `posts`';
-        sql += ' left join (select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno`';
-        sql += ' left join (select pno, count(lno) as likes from likes group by pno) likes on `posts`.`pno` = `likes`.`pno`';
+        sql += ' FROM `posts`';
+        sql += ' LEFT JOIN (SELECT `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno`';
+        sql += ' LEFT JOIN (SELECT `pno`, count(lno) AS likes FROM likes GROUP BY `pno`) likes ON `posts`.`pno` = `likes`.`pno`';
         if (userId) {
-            sql += ' left join (select `pno`,`luser` from `likes` where `luser` = ' + userId + ') `fav` on `fav`.`pno` = `posts`.`pno`';
+            sql += ' LEFT JOIN (SELECT `pno`,`luser` FROM `likes` WHERE `luser` = ' + userId + ') `fav` ON `fav`.`pno` = `posts`.`pno`';
         }
-        sql += ' left join `users` on `users`.`id` = `posts`.`writer`';
-        sql += ' where `posts`.`isDel`= 0';
+        sql += ' LEFT JOIN `users` ON `users`.`id` = `posts`.`writer`';
+        sql += ' WHERE `posts`.`isDel`= 0';
 
         // 최종 쿼리 + 검색쿼리
-        sql = 'select * from (' + sql + ') a';
+        sql = 'SELECT * FROM (' + sql + ') a';
         if (word) {
-            sql += ' where `writer` like "%' + word + '%" or `hashes` like "%' + word + '%" or `title` like "%' + word + '%"';
+            sql += ' WHERE `writer` LIKE "%' + word + '%" OR `hashes` LIKE "%' + word + '%" OR `title` LIKE "%' + word + '%"';
         }
-        sql += ' group by `pno` order by `pno` desc';
+        sql += ' GROUP BY `pno` ORDER BY `pno` DESC';
 
         // 페이징
         if (page) {
-            sql += ` limit ${page}`;
+            sql += ` LIMIT ${page}`;
         } else {
-            sql += ' limit 4';
+            sql += ' LIMIT 4';
         }
         return madDatabase
             .promise()
