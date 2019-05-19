@@ -6,7 +6,7 @@ const madDatabase = DB.madDb;
 const Like = {
     setLike: (pno, id) => {
         let sql = 'INSERT INTO `likes`(`pno`,`luser`) SELECT ?, ? FROM DUAL ';
-        sql += 'WHERE NOT EXISTS (SELECT `pno`, `luser` FROM `likes` WHERE `pno` = ? and `luser` = ?)';
+        sql += 'WHERE NOT EXISTS (SELECT `pno`, `luser` FROM `likes` WHERE `pno` = ? AND `luser` = ?)';
         return madDatabase
             .promise()
             // eslint-disable-next-line max-len
@@ -16,7 +16,7 @@ const Like = {
             });
     },
     delLike: (pno, id) => {
-        const sql = 'DELETE FROM `likes` WHERE `pno` = ? and `luser` = ?';
+        const sql = 'DELETE FROM `likes` WHERE `pno` = ? AND `luser` = ?';
         return madDatabase
             .promise()
             .query(sql, [pno, id])
@@ -25,7 +25,7 @@ const Like = {
             });
     },
     rankLike: () => {
-        const sql = 'select `pno`,count(`luser`) as `like` from `likes` group by `pno` order by `like` desc';
+        const sql = 'SELECT `pno`,count(`luser`) AS `like` FROM `likes` GROUP BY `pno` ORDER BY `like` DESC';
         return madDatabase
             .promise()
             .query(sql)
@@ -34,7 +34,7 @@ const Like = {
             });
     },
     chartLike: () => {
-        const sql = 'select `pno`,count(`luser`) `likeCnt` from `likes` group by `pno` order by count(`luser`) desc';
+        const sql = 'SELECT `pno`,count(`luser`) `likeCnt` FROM `likes` GROUP BY `pno` ORDER BY count(`luser`) DESC';
         return madDatabase
             .promise()
             .query(sql)
