@@ -38,10 +38,12 @@ const Hash = {
         }
     },
     rankHash: () => {
+        let sql = 'select GROUP_CONCAT(`ranks`.`hContent` SEPARATOR ",") as `rankHash` from ';
+        sql += '(select count(`hno`) cnt, `hContent` from `hashes` h left join `posts` p on h.`pno` = p.`pno` ';
+        sql += 'where p.`isDel` = 0 and h.`isDel` = 0 group by `hContent` order by `cnt` desc limit 7) as `ranks` ';
         return madDatabase
             .promise()
-            // eslint-disable-next-line max-len
-            .query('select GROUP_CONCAT(`ranks`.`hContent` SEPARATOR ",") as `rankHash` from (select count(`hno`) cnt, `hContent` from `hashes` h left join `posts` p on h.`pno` = p.`pno` where p.`isDel` = 0 and h.`isDel` = 0 group by `hContent` order by `cnt` desc limit 7) as `ranks` ')
+            .query(sql)
             .then(([rows]) => {
                 return rows;
             });
