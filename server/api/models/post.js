@@ -84,6 +84,15 @@ const Post = {
                 return rows;
             });
     },
+    deleteHash: (upDate, pno) => {
+        console.log(9);
+        return madDatabase
+            .promise()
+            .query('UPDATE `hashes` SET `isDel` = 1, `upDate`=? where `pno`=? ', [upDate, pno])
+            .then((rows) => {
+                return rows;
+            });
+    },
     getContents: (info) => {
         let sql = 'select `posts`.`pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes';
         sql += ' from `posts` left join `users` on `posts`.`writer` = `users`.`id`';

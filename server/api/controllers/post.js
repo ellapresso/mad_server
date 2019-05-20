@@ -58,8 +58,11 @@ const delPost = async (ctx) => {
     const upDate = req.upDate;
     const delInfo = [upDate, pno, id];
     const delPost = await POST.deletePost(delInfo);
+    console.log(delPost);
+    const delHash = await POST.deleteHash(upDate, pno);
     return ctx.send(200, {
         delPost,
+        delHash,
     });
 };
 
