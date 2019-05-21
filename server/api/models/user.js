@@ -35,6 +35,22 @@ const User = {
                 return rows;
             });
     },
+    writedList: (id) => {
+        return madDatabase
+            .promise()
+            .query('select * from `posts` where `writer` = ? and `isDel` = 0', id)
+            .then(([rows]) => {
+                return rows;
+            });
+    },
+    likeList: (id) => {
+        return madDatabase
+            .promise()
+            .query('select *` from `posts` p inner join `likes` l on p.`pno` = l.`pno` where `luser` = ? and `isDel` = 0 ', id)
+            .then(([rows]) => {
+                return rows;
+            });
+    },
 };
 
 module.exports = User;

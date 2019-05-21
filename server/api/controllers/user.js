@@ -13,12 +13,20 @@ const getUserInfo = async (ctx) => {
 
 // 작성한 글 리스트
 const writedList = async (ctx) => {
-    return;
+    const userId = ctx.request.body.userId;
+    const writedList = await USER.writedList(userId);
+    return ctx.send(200, {
+        writedList,
+    });
 };
 
 // 좋아요 누른 글 리스트
 const likeList = async (ctx) => {
-    return;
+    const userId = ctx.request.body.userId;
+    const likeList = await USER.likeList(userId);
+    return ctx.send(200, {
+        likeList,
+    });
 };
 
 module.exports.getUserInfo = getUserInfo;

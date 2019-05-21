@@ -39,4 +39,6 @@ module.exports = (app) => {
 
     // 마이페이지
     router.get(`${USER}`, userCtrl.getUserInfo);
+    router.get(`${USER}-writed`, userCtrl.writedList);
+    router.get(`${USER}-like`, userCtrl.likeList);
 };
