@@ -9,7 +9,7 @@ const User = {
     saveUser: (userinfo, id) => {
         let sql = 'INSERT INTO users ( `id` , `nickname` , `profile_image` , `thumbnail_image` , `reg_date` ) ';
         sql += 'values(?, ?, ?, ?, CURRENT_TIMESTAMP ) ';
-        sql += 'ON DUPLICATE KEY UPDATE `nickname` = ?, `profile_image` = ?, `thumbnail_image` = ?, update_day = CURRENT_TIMESTAMP';
+        sql += 'ON DUPLICATE KEY UPDATE `nickname` = ?, `profile_image` = ?, `thumbnail_image` = ?, `update_day` = CURRENT_TIMESTAMP';
         return madDatabase
             .promise()
             .query(sql, userinfo)
