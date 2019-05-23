@@ -23,7 +23,7 @@ const Post = {
         // 최종 쿼리 + 검색쿼리
         sql = 'select * from (' + sql + ') a';
         if (word) {
-            sql += ' where writer like "%' + word + '%" or hashes like "%' + word + '%" or title like "%' + word + '%"';
+            sql += ' where `writer` like "%' + word + '%" or `hashes` like "%' + word + '%" or `title` like "%' + word + '%"';
         }
         sql += ' group by `pno` order by `pno` desc';
 
@@ -70,7 +70,7 @@ const Post = {
             });
     },
     updatePost: (contents) => {
-        const sql = 'UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=? where pno =? and isDel = 0';
+        const sql = 'UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=? where `pno` =? and `isDel` = 0';
         return madDatabase
             .promise()
             .query(sql, contents)
@@ -100,7 +100,7 @@ const Post = {
         let sql = 'select `posts`.`pno`, `title`, `nickname`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes';
         sql += ' from `posts` left join `users` on `posts`.`writer` = `users`.`id`';
         sql += ' left join (select `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") as `hashes` from `hashes` where `isDel` = 0 group by `pno`) `hash` on `posts`.`pno` = `hash`.`pno`';
-        sql += ' where `posts`.`pno` = ? and writer = ? and isDel = 0';
+        sql += ' where `posts`.`pno` = ? and `writer` = ? and `isDel` = 0';
         return madDatabase
             .promise()
             .query(sql, info)
