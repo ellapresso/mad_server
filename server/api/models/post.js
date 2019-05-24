@@ -61,33 +61,37 @@ const Post = {
             });
     },
     setPost: (contents) => {
+        const sql = 'INSERT INTO `posts` ( `title`, `contents`, `writer`, `wrDate`) VALUES (?,?, ?, ?)';
         return madDatabase
             .promise()
-            .query('INSERT INTO `posts` ( `title`, `contents`, `writer`, `wrDate`) VALUES (?,?, ?, ?)', contents)
+            .query(sql, contents)
             .then(([rows]) => {
                 return rows;
             });
     },
     updatePost: (contents) => {
+        const sql = 'UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=? where pno =? and isDel = 0';
         return madDatabase
             .promise()
-            .query('UPDATE `posts` SET `title`=?, `contents`=?, `writer`=?, `upDate`=? where pno =? and isDel = 0', contents)
+            .query(sql, contents)
             .then(([rows]) => {
                 return rows;
             });
     },
     deletePost: (delInfo) => {
+        const sql = 'UPDATE `posts` SET `isDel` = 1, `upDate`=? where `pno`=? and `writer`=?';
         return madDatabase
             .promise()
-            .query('UPDATE `posts` SET `isDel` = 1, `upDate`=? where `pno`=? and `writer`=?', delInfo)
+            .query(sql, delInfo)
             .then((rows) => {
                 return rows;
             });
     },
     deleteHash: (upDate, pno) => {
+        const sql = 'UPDATE `hashes` SET `isDel` = 1, `upDate`=? where `pno`=? ';
         return madDatabase
             .promise()
-            .query('UPDATE `hashes` SET `isDel` = 1, `upDate`=? where `pno`=? ', [upDate, pno])
+            .query(sql, [upDate, pno])
             .then((rows) => {
                 return rows;
             });

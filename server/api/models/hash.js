@@ -49,9 +49,10 @@ const Hash = {
             });
     },
     chartHash: () => {
+        const sql = 'select `hContent` as `hashTag`,count(`pno`) as `cnt` from `hashes` where `isDel` = 0 group by `hContent` order by count(`pno`) desc';
         return madDatabase
             .promise()
-            .query(' select `hContent` as `hashTag`,count(`pno`) as `cnt` from `hashes` where `isDel` = 0 group by `hContent` order by count(`pno`) desc')
+            .query(sql)
             .then(([rows]) => {
                 return rows;
             });
