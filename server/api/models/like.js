@@ -35,9 +35,9 @@ const Like = {
     },
     chartLike: () => {
         let sql = 'select * from ';
-        sql += '(SELECT `pno`,count(`luser`) `likeCnt` FROM `likes` GROUP BY `pno` ORDER BY count(`luser`) DESC ) a ';
+        sql += '(select p.`pno`, p.`title`, u.`nickname`, u.`thumbnail_image`, p.`wrDate` from `posts` p left join `users` u on p.`writer` = u.`id` where p.`isDel`=0) b ';
         sql += 'left join ';
-        sql += '(select p.pno, p.title, u.nickname, u.thumbnail_image, p.wrDate from posts p left join users u on p.writer = u.id) b on a.pno = b.pno';
+        sql += '(SELECT `pno`,count(`luser`) `likeCnt` FROM `likes` GROUP BY `pno`) a on a.`pno` = b.`pno` ORDER BY `likeCnt` DESC ';
         return madDatabase
             .promise()
             .query(sql)
