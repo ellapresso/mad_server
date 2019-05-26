@@ -46,7 +46,7 @@ const User = {
             });
     },
     likeList: (id) => {
-        const sql = 'select *` from `posts` p inner join `likes` l on p.`pno` = l.`pno` where `luser` = ? and `isDel` = 0';
+        const sql = 'select * from `posts` p inner join `likes` l on p.`pno` = l.`pno` where `luser` = ? and `isDel` = 0';
         return madDatabase
             .promise()
             .query(sql, id)
