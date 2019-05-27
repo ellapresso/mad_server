@@ -38,7 +38,7 @@ module.exports = (app) => {
     router.get(`/api/chart-like`, likeCtrl.chartLike);
 
     // 마이페이지
-    router.get(`${USER}`, userCtrl.getUserInfo);
-    router.get(`${USER}-writed`, userCtrl.writedList);
-    router.get(`${USER}-like`, userCtrl.likeList);
+    router.post(`${USER}`, userCtrl.getUserInfo);
+    router.post(`${USER}-writed`, userCtrl.writedList);
+    router.post(`${USER}-like`, userCtrl.likeList);
 };
