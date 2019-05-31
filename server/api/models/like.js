@@ -33,7 +33,7 @@ const Like = {
             });
     },
     chartLike: () => {
-        let sql = 'select b.`pno`,`title`,`nickname`,`thumbnail_image` as `thumbnail`, `wrDate`, if(`likeCnt` is null, 0 ,`likeCnt`) `likeCnt` from ';
+        let sql = 'select b.`pno`,`title`,`nickname`,`p.writer` as `userId`,`thumbnail_image` as `thumbnail`, `wrDate`, if(`likeCnt` is null, 0 ,`likeCnt`) `likeCnt` from ';
         sql += '(select p.`pno`, p.`title`, u.`nickname`, u.`thumbnail_image`, p.`wrDate` ';
         sql += 'from `posts` p left join `users` u on p.`writer` = u.`id` where p.`isDel`=0) b ';
         sql += 'left join ';
