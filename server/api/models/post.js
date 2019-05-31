@@ -95,7 +95,7 @@ const Post = {
             });
     },
     getContents: (info) => {
-        let sql = 'SELECT `posts`.`pno`, `title`, `nickname` as `writer`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes,if(l.`cnt` is null,0,l.`cnt`) as like';
+        let sql = 'SELECT `posts`.`pno`, `title`, `nickname` as `writer`, `contents`, `thumbnail_image`, `reg_date`, `update_day`, hashes,if(l.`cnt` is null,0,l.`cnt`) as `likes`';
         sql += ' FROM `posts` LEFT JOIN `users` ON `posts`.`writer` = `users`.`id`';
         sql += ' LEFT JOIN (SELECT `pno`, GROUP_CONCAT(`hContent` SEPARATOR ",") AS `hashes` FROM `hashes` WHERE `isDel` = 0 GROUP BY `pno`) `hash` ON `posts`.`pno` = `hash`.`pno`';
         sql += ' LEFT JOIN (SELECT count(`luser`) as cnt,`pno` from `likes` GROUP BY `pno`) as l on l.pno = posts.pno';
