@@ -37,7 +37,7 @@ const User = {
             });
     },
     writedList: (id) => {
-        const sql = 'select * from `posts` where `writer` = ? and `isDel` = 0';
+        const sql = 'select * from `posts` where `writer` = ? and `isDel` = 0 order by `wrDate` desc';
         return madDatabase
             .promise()
             .query(sql, id)
