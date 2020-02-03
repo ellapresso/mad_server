@@ -17,10 +17,6 @@ require('./routes')(app);
 app.listen(process.env.PORT);
 app.use(router.routes()).use(router.allowedMethods());
 
-router.get('/health', (ctx) => {
-    ctx.ok();
-});
-
 router.get('/test', (ctx) => {
     const testSql = 'select * from test where test_no=2';
     return db.madDb
